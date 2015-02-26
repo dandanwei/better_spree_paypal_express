@@ -66,7 +66,7 @@ module Spree
       end
     end
 
-    #def cancel
+    #def cancel 
     def cancel(response)
       flash[:notice] = Spree.t('flash.cancel', :scope => 'paypal')
       order = current_order || raise(ActiveRecord::RecordNotFound)
