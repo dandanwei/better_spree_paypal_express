@@ -70,6 +70,10 @@ module Spree
       end
     end
 
+    def cancel(response)
+      # do nothing
+    end
+
     def refund(payment, amount)
       refund_type = payment.amount == amount.to_f ? "Full" : "Partial"
       refund_transaction = provider.build_refund_transaction({
