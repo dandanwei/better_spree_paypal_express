@@ -103,9 +103,6 @@ module Spree
       end
       refund_transaction_response
     end
-    
-    alias_method :credit, :refund
-    
   end
 end
 
