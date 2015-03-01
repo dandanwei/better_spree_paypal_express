@@ -47,8 +47,6 @@ module Spree
 
     def confirm
       order = current_order || raise(ActiveRecord::RecordNotFound)
-      logger.info("+++++1:") 
-      logger.info("        yes") if order.completed?
       order.payments.create!({
         :source => Spree::PaypalExpressCheckout.create({
           :token => params[:token],
@@ -57,21 +55,13 @@ module Spree
         :amount => order.total,
         :payment_method => payment_method
       })
-      logger.info("+++++2:") 
-      logger.info("        yes") if order.completed?
       order.next
-      logger.info("+++++3:") 
-      logger.info("        yes") if order.completed?
       if order.complete?
-        logger.info("+++++4:") 
-      logger.info("        yes") if order.completed?
         flash.notice = Spree.t(:order_processed_successfully)
         flash[:commerce_tracking] = "nothing special"
         session[:order_id] = nil
         redirect_to completion_route(order)
       else
-        logger.info("+++++5:") 
-      logger.info("        yes") if order.completed?
         redirect_to checkout_state_path(order.state)
       end
     end
